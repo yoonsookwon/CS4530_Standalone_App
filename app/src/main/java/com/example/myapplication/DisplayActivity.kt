@@ -66,6 +66,7 @@ class DisplayActivity : AppCompatActivity(), View.OnClickListener  {
                 mName = mMiddleName!!.text.toString()
                 lName = mLastName!!.text.toString()
 
+
                 if (fName.isNullOrBlank() || lName.isNullOrBlank()) {
                     val toast = Toast.makeText(
                         applicationContext,

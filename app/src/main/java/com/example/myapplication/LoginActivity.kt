@@ -11,6 +11,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     private var mName: String? = null
     private var lName: String? = null
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_main)

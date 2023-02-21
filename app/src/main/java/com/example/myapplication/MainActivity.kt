@@ -17,6 +17,7 @@ import java.io.FileOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
 
+
 class MainActivity : AppCompatActivity(), View.OnClickListener {
     //Create variables to hold the strings
     private var mFirstName: EditText? = null
