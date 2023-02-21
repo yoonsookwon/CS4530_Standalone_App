@@ -2,22 +2,22 @@ package com.example.myapplication
 
 
 import android.content.ActivityNotFoundException
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import android.content.Intent
-import android.provider.MediaStore
 import android.graphics.Bitmap
+import android.os.Bundle
 import android.os.Environment
-import android.view.Gravity
+import android.provider.MediaStore
 import android.view.View
 import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import java.io.File
 import java.io.FileOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
 
 
+@Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity(), View.OnClickListener {
     //Create variables to hold the strings
     private var mFirstName: EditText? = null
@@ -33,7 +33,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private var mButtonCamera: Button? = null
 
     //Create the variable for the ImageView that holds the thumbnail  pic
-    private var mIvPic: ImageView? = null
     private var isTookPicture : Boolean = false
 
     //Define a bitmap
@@ -70,13 +69,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
                 if (fName.isNullOrBlank() || lName.isNullOrBlank()) {
                     val toast = Toast.makeText(applicationContext, "You must enter First,Last name!", Toast.LENGTH_LONG)
-                    toast.setGravity(Gravity.CENTER, 0,20)
                     toast.show()
                 }
                 else if(!isTookPicture)
                 {
                     val toast = Toast.makeText(applicationContext, "You must take picture!", Toast.LENGTH_LONG)
-                    toast.setGravity(Gravity.CENTER, 0,60)
                     toast.show()
                 }
                 else
@@ -89,6 +86,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
             R.id.button_pic -> {
+                mFirstName = findViewById(R.id.first_edit_data)
+                mMiddleName = findViewById(R.id.middle_edit_data)
+                mLastName = findViewById(R.id.last_edit_data)
+
+                fName = mFirstName!!.text.toString()
+                mName = mMiddleName!!.text.toString()
+                lName = mLastName!!.text.toString()
                 //The button press should open a camera
                 val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
                    try {
@@ -110,6 +114,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             if (isExternalStorageWritable) {
                 val filePathString = saveImage(mThumbnailImage)
                 mDisplayIntent!!.putExtra("imagePath", filePathString)
+                mDisplayIntent!!.putExtra("FirstName", fName)
+                mDisplayIntent!!.putExtra("MiddleName", mName)
+                mDisplayIntent!!.putExtra("LastName", lName)
                 startActivity(mDisplayIntent) //explicit intent
             } else {
                 Toast.makeText(this, "External storage not writable.", Toast.LENGTH_SHORT).show()

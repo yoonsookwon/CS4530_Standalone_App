@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.graphics.BitmapFactory
-import android.view.Gravity
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -13,7 +12,7 @@ import android.widget.Toast
 
 class DisplayActivity : AppCompatActivity(), View.OnClickListener  {
 
-    var mIvThumbnail: ImageView? = null
+    private var mIvThumbnail: ImageView? = null
 
     //Create variables for the UI elements that we need to control
     private var mButtonSubmit: Button? = null
@@ -31,6 +30,18 @@ class DisplayActivity : AppCompatActivity(), View.OnClickListener  {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        mFirstName = findViewById<EditText>(R.id.first_edit_data)
+        mMiddleName = findViewById<EditText>(R.id.middle_edit_data)
+        mLastName = findViewById<EditText>(R.id.last_edit_data)
+
+        fName = intent!!.getStringExtra("FirstName")
+        mName = intent.getStringExtra("MiddleName")
+        lName = intent.getStringExtra("LastName")
+
+        mFirstName!!.setText(fName)
+        mMiddleName!!.setText(mName)
+        mLastName!!.setText(lName)
 
         //Get the buttons IDs
         mButtonCamera = findViewById(R.id.button_pic)
@@ -73,7 +84,6 @@ class DisplayActivity : AppCompatActivity(), View.OnClickListener  {
                         "You must enter First,Last name!",
                         Toast.LENGTH_LONG
                     )
-                    toast.setGravity(Gravity.CENTER, 0, 20)
                     toast.show()
                 }
                 else {
